@@ -1,8 +1,8 @@
 // Favoritos guardados en el teléfono con expo-sqlite/kv-store (preferencias, NO el token).
-import Storage from "../datos/kv";
 import { useCallback, useEffect, useState } from "react";
+import Storage from "../datos/kv";
 import type { Usuario } from "../tipos";
-import { pedir } from "./http";
+import { pedir } from "./apiClient";
 import { leerToken } from "./sesion";
 
 export type TipoFavorito = "lineas" | "paradas";
@@ -55,11 +55,11 @@ export function useFavoritos(t: TipoFavorito) {
 /** Si hay sesión, avisa a la API (PUT/DELETE /yo/lineas-favoritas/:id). Sin sesión o sin red, queda solo en el teléfono. */
 async function sincronizarFavorito(t: TipoFavorito, id: string, agregar: boolean): Promise<void> {
   try {
+   // Si no hay token, salimos (el interceptor ya maneja el token si existe, pero chequearlo evita llamadas innecesarias)
     if (!(await leerToken())) return;
     await pedir(`/yo/${t === "lineas" ? "lineas" : "paradas"}-favoritas/${encodeURIComponent(id)}`, {
       metodo: agregar ? "PUT" : "DELETE",
-      conSesion: true,
-    });
+      });
   } catch {
     // no es grave: el favorito ya quedó guardado en el teléfono
   }

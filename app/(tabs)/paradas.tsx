@@ -28,7 +28,7 @@ export default function Paradas() {
     <View style={{ flex: 1, backgroundColor: c.fondo }}>
       <BannerRed />
       <Pressable
-        onPress={() => router.push("/escanear")}
+        onPress={() => router.push("/qr/escanear")}
         accessibilityRole="button"
         style={[estilos.qr, { backgroundColor: c.primario }]}
       >

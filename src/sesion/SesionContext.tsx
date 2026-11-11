@@ -1,8 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { Platform } from "react-native";
+import { gancho } from "../servicios/apiClient";
 import * as auth from "../servicios/auth";
 import { mezclarFavoritosDelUsuario } from "../servicios/favoritos";
-import { gancho } from "../servicios/http";
 import { sincronizarReportes } from "../servicios/reportes";
 import { borrarSesion, guardarSesion, leerToken, leerUsuario } from "../servicios/sesion";
 import type { Usuario } from "../tipos";

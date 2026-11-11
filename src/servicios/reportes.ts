@@ -3,9 +3,8 @@ import Storage from "../datos/kv";
 import { guardarLocal, listarLocales, marcarSincronizado, pendientes } from "../datos/reportesDb";
 import type { MotivoDemora, ReporteDeDemora } from "../tipos";
 import { fechaConZona } from "../utils/tiempo";
-import { ErrorApi } from "./api";
+import { ErrorApi, pedir, pedirLista } from "./apiClient";
 import { subirFoto } from "./archivos";
-import { pedir, pedirLista } from "./http";
 import { leerToken } from "./sesion";
 
 export const etiquetaMotivo: Record<MotivoDemora, string> = {
@@ -75,7 +74,6 @@ export async function sincronizarReportes(): Promise<number> {
 
       await pedir<ReporteDeDemora>("/reportes-demora", {
         metodo: "POST",
-        conSesion: true,
         cuerpo: {
           id: r.id,
           lineaId: r.lineaId,
@@ -114,7 +112,6 @@ export const obtenerConfirmados = leerConfirmados;
 export async function confirmarReporte(id: string): Promise<void> {
   await pedir<ReporteDeDemora>(`/reportes-demora/${encodeURIComponent(id)}/confirmaciones`, {
     metodo: "POST",
-    conSesion: true,
   });
   const actuales = await leerConfirmados();
   if (!actuales.includes(id)) await Storage.setItem(CLAVE_CONFIRMADOS, JSON.stringify([...actuales, id]));
