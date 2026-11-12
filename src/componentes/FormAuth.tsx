@@ -56,14 +56,14 @@ export function FormAuth({ modo }: { modo: "ingreso" | "registro" }) {
           placeholder="Contraseña (mínimo 8)"
           placeholderTextColor={c.textoSuave}
           secureTextEntry={mostrar}
-          style={{width:'95%'}}
+          style={[{color:c.texto},{width:'95%'}]}
         />
         <TouchableOpacity 
             onPress={()=>setMostrar(!mostrar)}
             
             accessibilityLabel="Mostrar/ocultar contraseña"
             activeOpacity={0.8}>
-            <Ionicons name={mostrar ? "eye-outline" : "eye-off-outline"} size={22} color={'#fff'} />
+            <Ionicons name={mostrar ? "eye-outline" : "eye-off-outline"} size={22} color={c.texto} />
         </TouchableOpacity>
       </View>
       {error && <Text style={{ color: c.error }}>{error}</Text>}
