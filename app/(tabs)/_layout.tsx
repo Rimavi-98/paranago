@@ -20,6 +20,7 @@ export default function TabsLayout() {
         options={{
           title: "ParanaGo",
           tabBarLabel: "Inicio",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => <Ionicons name="home" color={color} size={size} />,
         }}
       />
@@ -27,6 +28,7 @@ export default function TabsLayout() {
         name="lineas"
         options={{
           title: "Líneas",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => <Ionicons name="bus" color={color} size={size} />,
         }}
       />
@@ -34,6 +36,7 @@ export default function TabsLayout() {
         name="paradas"
         options={{
           title: "Paradas",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => <Ionicons name="location" color={color} size={size} />,
         }}
       />
@@ -41,6 +44,7 @@ export default function TabsLayout() {
         name="avisos"
         options={{
           title: "Avisos",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => <Ionicons name="warning" color={color} size={size} />,
         }}
       />
@@ -48,6 +52,8 @@ export default function TabsLayout() {
         name="yo"
         options={{
           title: "Yo",
+          headerShown: false,
+
           tabBarIcon: ({ color, size }) => <Ionicons name="person" color={color} size={size} />,
         }}
       />
