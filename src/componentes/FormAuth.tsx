@@ -1,6 +1,7 @@
+import Ionicons from "@react-native-vector-icons/ionicons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, TextInput } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useSesion } from "../sesion/SesionContext";
 import { useColores } from "../tema";
 
@@ -12,6 +13,7 @@ export function FormAuth({ modo }: { modo: "ingreso" | "registro" }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [cargando, setCargando] = useState(false);
+  const [mostrar, setMostrar] = useState(true);
 
   async function enviar() {
     setError(null);
@@ -22,7 +24,7 @@ export function FormAuth({ modo }: { modo: "ingreso" | "registro" }) {
     try {
       if (modo === "registro") await registrar(nombre, email, password);
       else await ingresar(email, password);
-      router.back();
+      //router.back();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Ocurrió un error inesperado.");
     } finally {
@@ -47,14 +49,23 @@ export function FormAuth({ modo }: { modo: "ingreso" | "registro" }) {
         keyboardType="email-address"
         style={campo}
       />
-      <TextInput
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Contraseña (mínimo 8)"
-        placeholderTextColor={c.textoSuave}
-        secureTextEntry
-        style={campo}
-      />
+      <View style={[campo, estilos.inputMostrar]}>
+        <TextInput
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Contraseña (mínimo 8)"
+          placeholderTextColor={c.textoSuave}
+          secureTextEntry={mostrar}
+          style={[{color:c.texto},{width:'95%'}]}
+        />
+        <TouchableOpacity 
+            onPress={()=>setMostrar(!mostrar)}
+            
+            accessibilityLabel="Mostrar/ocultar contraseña"
+            activeOpacity={0.8}>
+            <Ionicons name={mostrar ? "eye-outline" : "eye-off-outline"} size={22} color={c.texto} />
+        </TouchableOpacity>
+      </View>
       {error && <Text style={{ color: c.error }}>{error}</Text>}
       <Pressable
         onPress={enviar}
@@ -79,4 +90,5 @@ const estilos = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: 10, padding: 12, fontSize: 16, minHeight: 48 },
   boton: { padding: 14, borderRadius: 10, alignItems: "center", minHeight: 48, justifyContent: "center" },
   botonTexto: { color: "#fff", fontWeight: "700", fontSize: 16 },
+  inputMostrar:{ flexDirection:'row', alignItems:'center', justifyContent:'space-between'}
 });

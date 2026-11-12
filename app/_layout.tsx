@@ -40,14 +40,19 @@ function Contenido() {
     <>
       <StatusBar style={oscuro ? "light" : "dark"} />
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Protected guard={!!(estado==='sin_sesion')}>
+          <Stack.Screen name="ingresar" options={{ ...cabecera, title: "Ingresar" }} />
+          <Stack.Screen name="registro" options={{ ...cabecera, title: "Crear cuenta" }} />
+        </Stack.Protected>
+        <Stack.Protected guard={!(estado==='sin_sesion')}>
+                <Stack.Screen name="(tabs)" />
+        </Stack.Protected>
+
         <Stack.Screen name="linea/[id]" options={{ ...cabecera, title: "Línea" }} />
         <Stack.Screen name="parada/[id]" options={{ ...cabecera, title: "Parada" }} />
         <Stack.Screen name="aviso/[id]" options={{ ...cabecera, title: "Aviso" }} />
         <Stack.Screen name="reportar/[paradaId]" options={{ ...cabecera, title: "Reportar" }} />
-        <Stack.Screen name="escanear" options={{ ...cabecera, title: "Escanear QR" }} />
-        <Stack.Screen name="ingresar" options={{ ...cabecera, title: "Ingresar" }} />
-        <Stack.Screen name="registro" options={{ ...cabecera, title: "Crear cuenta" }} />
+       
       </Stack>
     </>
   );

@@ -1,11 +1,11 @@
-import * as Haptics from "expo-haptics";
 import { CameraView, useCameraPermissions } from "expo-camera";
+import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { obtenerParada } from "../src/servicios/paradas";
-import { useColores } from "../src/tema";
-import { parsearQr } from "../src/utils/qr";
+import { obtenerParada } from "../../src/servicios/paradas";
+import { useColores } from "../../src/tema";
+import { parsearQr } from "../../src/utils/qr";
 
 export default function Escanear() {
   const c = useColores();
