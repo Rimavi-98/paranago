@@ -1,6 +1,7 @@
 import type { Aviso } from "../tipos";
-import { ErrorApi, pedirLista } from "./apiClient";
+import { ErrorApi } from "./api";
 import { conCache } from "./cache";
+import { pedirLista } from "./http";
 import { notificarAvisosNuevos } from "./notificaciones";
 
 // Los avisos cambian todos los días: se guardan la última vez, y si no hay red

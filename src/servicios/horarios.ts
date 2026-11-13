@@ -1,6 +1,6 @@
 import type { Horario, TipoDeDia } from "../tipos";
-import { pedirLista } from "./apiClient";
 import { conCache } from "./cache";
+import { pedirLista } from "./http";
 import { obtenerLineas } from "./lineas";
 import { obtenerParada } from "./paradas";
 

@@ -1,6 +1,7 @@
 import type { Parada } from "../tipos";
-import { ErrorApi, pedirLista } from "./apiClient";
+import { ErrorApi } from "./api";
 import { conCache } from "./cache";
+import { pedirLista } from "./http";
 
 export function obtenerParadas(): Promise<Parada[]> {
   return conCache("paradas", () => pedirLista<Parada>("/paradas", { porPagina: 100 }));

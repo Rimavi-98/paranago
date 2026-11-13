@@ -1,5 +1,5 @@
-import { pedirLista } from "./apiClient";
 import { conCache } from "./cache";
+import { pedirLista } from "./http";
 
 const SIETE_DIAS = 7 * 24 * 60 * 60 * 1000;
 
