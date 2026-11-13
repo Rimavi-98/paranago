@@ -50,7 +50,7 @@ export default function Paradas() {
         </View>
 
         <Pressable
-          onPress={() => router.push("/escanear")}
+          onPress={() => router.push("/qr/escanear")}
           style={estilos.botonQr}
           accessibilityRole="button"
         >
