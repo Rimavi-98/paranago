@@ -71,7 +71,21 @@ export async function sincronizarReportes(): Promise<number> {
   for (const r of await pendientes()) {
     try {
       let fotoUrl: string | null = null;
-      if (r.fotoUri) fotoUrl = r.fotoUri.startsWith("http") ? r.fotoUri : await subirFoto(r.fotoUri);
+      if (r.fotoUri) {
+        if (r.fotoUri.startsWith("http")) {
+          fotoUrl = r.fotoUri;
+        } else {
+          try {
+            fotoUrl = await subirFoto(r.fotoUri);
+          } catch (e) {
+            // Sin red (o un error que no es de la API): se reintenta más tarde, con la foto
+            if (!(e instanceof ErrorApi) || e.codigo === "ERROR_DE_RED") throw e;
+            // La API respondió pero rechazó la foto: el reporte sale igual, sin foto,
+            // para que una foto con problemas no trabe toda la cola
+            fotoUrl = null;
+          }
+        }
+      }
 
       await pedir<ReporteDeDemora>("/reportes-demora", {
         metodo: "POST",
