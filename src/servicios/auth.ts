@@ -1,6 +1,6 @@
 // Cuenta contra la API real: POST /auth/registro y POST /auth/ingreso devuelven { token, usuario }.
 import type { Usuario } from "../tipos";
-import { pedir } from "./apiClient";
+import { pedir } from "./http";
 
 export interface RespuestaAuth {
   token: string;

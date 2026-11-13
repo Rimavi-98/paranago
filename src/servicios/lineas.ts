@@ -1,6 +1,7 @@
 import type { Linea } from "../tipos";
-import { ErrorApi, pedirLista } from "./apiClient";
+import { ErrorApi } from "./api";
 import { conCache } from "./cache";
+import { pedirLista } from "./http";
 
 export function obtenerLineas(): Promise<Linea[]> {
   return conCache("lineas", () => pedirLista<Linea>("/lineas", { porPagina: 100 }));
