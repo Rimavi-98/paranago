@@ -9,6 +9,19 @@ import { notificarAvisosNuevos } from "./notificaciones";
 // el reproductor y el desvío, si ninguno los trae, el primer aviso usa datos de prueba.
 const VIDEO_DE_PRUEBA = "https://www.w3schools.com/html/mov_bbb.mp4";
 
+// Si la API no tiene ningún aviso vigente, se muestra este de prueba (para poder demostrar la pantalla).
+const AVISO_DE_PRUEBA: Aviso = {
+  id: "avi-demo",
+  titulo: "Cambio de recorrido de la línea 1",
+  detalle: "Aviso de demostración: la línea 1 cambia su recorrido en el centro.",
+  lineaIds: ["lin-01"],
+  desde: "2026-11-07T00:00:00-03:00",
+  hasta: null,
+  gravedad: "desvio",
+  trazadoAlternativo: null,
+  videoUrl: null,
+};
+
 /** Desvío de prueba: el tramo del medio del recorrido de la línea, corrido unos 170 m. */
 async function trazadoDeDesvio(lineaId: string): Promise<Coordenadas[] | null> {
   try {
@@ -28,8 +41,8 @@ async function trazadoDeDesvio(lineaId: string): Promise<Coordenadas[] | null> {
 // Los avisos cambian todos los días: se guardan la última vez, y si no hay red
 // se muestran con el cartel de "información desactualizada".
 export async function obtenerAvisos(): Promise<Aviso[]> {
-  const avisos = await conCache("avisos", () => pedirLista<Aviso>("/avisos", { porPagina: 100 }));
-  if (avisos.length === 0) return avisos;
+  const desdeApi = await conCache("avisos", () => pedirLista<Aviso>("/avisos", { porPagina: 100 }));
+  const avisos = desdeApi.length > 0 ? desdeApi : [AVISO_DE_PRUEBA];
 
   const sinVideo = !avisos.some((a) => a.videoUrl);
   const sinTrazado = !avisos.some((a) => a.trazadoAlternativo);
