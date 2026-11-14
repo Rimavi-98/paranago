@@ -77,11 +77,10 @@ export async function sincronizarReportes(): Promise<number> {
         } else {
           try {
             fotoUrl = await subirFoto(r.fotoUri);
-          } catch (e) {
-            // Sin red (o un error que no es de la API): se reintenta más tarde, con la foto
-            if (!(e instanceof ErrorApi) || e.codigo === "ERROR_DE_RED") throw e;
-            // La API respondió pero rechazó la foto: el reporte sale igual, sin foto,
-            // para que una foto con problemas no trabe toda la cola
+          } catch {
+            // La foto es opcional: si no se puede subir, el reporte sale igual, sin foto.
+            // Si en realidad no hay red, el envío de abajo también falla y el reporte
+            // sigue en la cola (todavía con su foto) para reintentarlo más tarde.
             fotoUrl = null;
           }
         }

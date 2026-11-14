@@ -52,6 +52,7 @@ function Contenido() {
         <Stack.Screen name="parada/[id]" options={{ ...cabecera, title: "Parada" }} />
         <Stack.Screen name="aviso/[id]" options={{ ...cabecera, title: "Aviso" }} />
         <Stack.Screen name="reportar/[paradaId]" options={{ ...cabecera, title: "Reportar" }} />
+        <Stack.Screen name="qr/escanear" options={{ ...cabecera, title: "Escanear QR" }} />
        
       </Stack>
     </>
