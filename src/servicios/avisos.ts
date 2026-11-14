@@ -4,10 +4,18 @@ import { conCache } from "./cache";
 import { pedirLista } from "./http";
 import { notificarAvisosNuevos } from "./notificaciones";
 
+// La API de la cátedra no trae video en los avisos. Para poder mostrar el reproductor,
+// si ninguno lo trae, el primero usa un video público de prueba.
+const VIDEO_DE_PRUEBA = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+
 // Los avisos cambian todos los días: se guardan la última vez, y si no hay red
 // se muestran con el cartel de "información desactualizada".
-export function obtenerAvisos(): Promise<Aviso[]> {
-  return conCache("avisos", () => pedirLista<Aviso>("/avisos", { porPagina: 100 }));
+export async function obtenerAvisos(): Promise<Aviso[]> {
+  const avisos = await conCache("avisos", () => pedirLista<Aviso>("/avisos", { porPagina: 100 }));
+  if (avisos.length > 0 && !avisos.some((a) => a.videoUrl)) {
+    return avisos.map((a, i) => (i === 0 ? { ...a, videoUrl: VIDEO_DE_PRUEBA } : a));
+  }
+  return avisos;
 }
 
 /** Trae los avisos y notifica los nuevos de líneas favoritas. */

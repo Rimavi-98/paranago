@@ -3,7 +3,7 @@ import { API_URL } from "../config";
 import { ErrorApi } from "./api";
 import { leerToken } from "./sesion";
 
-const TIEMPO_MAXIMO_MS = 90_000; // igual que http.ts: una subida colgada no puede trabar la cola para siempre
+const TIEMPO_MAXIMO_MS = 45_000; // una subida colgada no puede trabar la cola: pasado este tiempo el reporte sale sin foto
 
 export async function subirFoto(uri: string): Promise<string> {
   const token = await leerToken();
