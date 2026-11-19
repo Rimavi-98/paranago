@@ -4,14 +4,6 @@ App móvil de transporte público de Paraná: consultá líneas, paradas y horar
 
 Trabajo integrador de **Desarrollo para Móviles** (UNER). Hecha con **React Native + Expo (SDK 58) + Expo Router + TypeScript**.
 
-## Entregables
-
-| | |
-|---|---|
-| **APK (preview, instalable)** | `COMPLETAR: enlace del build de EAS` |
-| **Video de la defensa** | `COMPLETAR: enlace al video` |
-| **Integrantes** | `COMPLETAR: nombres del grupo` |
-
 > El APK se compila en la nube de EAS: se instala en cualquier Android sin necesidad de Metro ni de la computadora de nadie.
 
 ## Qué hace
